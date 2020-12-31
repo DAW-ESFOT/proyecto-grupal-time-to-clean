@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
+//Users-Drivers
+Route::get('users', function(){
+    return User::all();
+});
+Route::get('users/{id}', function($id){
+    return User::find($id);
+});
+Route::post('users', function(Request $request){
+    return User::create($request->all());
+});
+Route::put('users/{id}', function(
+    Request $request, $id){
+    $user = User::findOrFail($id);
+    $user->update($request->all());
+    return $user;
+});
+Route::delete('users/{id}', function($id){
+    User::find($id)->delete();return 204;
+});
+//
