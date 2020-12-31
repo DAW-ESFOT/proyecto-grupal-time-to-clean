@@ -20,22 +20,14 @@ use App\Models\User;
 });
 */
 //Users-Drivers
-Route::get('users', function(){
-    return User::all();
+Route::post('register', 'App\Http\Controllers\UserController@register');
+Route::post('login', 'App\Http\Controllers\UserController@authenticate');
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('users', 'App\Http\Controllers\UserController@getAuthenticatedUser');
+    Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
+    Route::post('users', 'App\Http\Controllers\UserController@store');
+    Route::put('users/{user}', 'App\Http\Controllers\UserController@update');
+    Route::delete('users/{user}', 'App\Http\Controllers\UserController@delete');
 });
-Route::get('users/{id}', function($id){
-    return User::find($id);
-});
-Route::post('users', function(Request $request){
-    return User::create($request->all());
-});
-Route::put('users/{id}', function(
-    Request $request, $id){
-    $user = User::findOrFail($id);
-    $user->update($request->all());
-    return $user;
-});
-Route::delete('users/{id}', function($id){
-    User::find($id)->delete();return 204;
-});
+
 //
