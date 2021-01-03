@@ -4,6 +4,7 @@ use App\Models\Neighborhoods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Models\Complaint;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
 
+Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'App\Http\Controllers\UserController@getAuthenticatedUser');
@@ -39,9 +41,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@update');
     Route::delete('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@delete');
 
+    Route::get('complaints', 'App\Http\Controllers\ComplaintController@index');
+    Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
+    Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');
+    Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
 });
-
-//
-
-
-
