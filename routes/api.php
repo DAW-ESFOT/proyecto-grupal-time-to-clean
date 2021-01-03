@@ -46,4 +46,3 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');
     Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
 });
-
