@@ -45,5 +45,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
     Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');
     Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
-});
 
+    Route::get('trucks', 'App\Http\Controllers\truckController@index');
+    Route::get('trucks/{truck}', 'App\Http\Controllers\truckController@show');
+    Route::put('trucks/{truck}', 'App\Http\Controllers\truckController@update');
+    Route::delete('trucks/{truck}', 'App\Http\Controllers\truckController@delete');
+});
