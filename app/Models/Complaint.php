@@ -15,6 +15,7 @@ class Complaint extends Model
         'state',
         'observation'
     ];
-
-
+    public function neighborhood(){
+        return $this->belongsTo('App\Models\Neighborhoods');
+    }
 }

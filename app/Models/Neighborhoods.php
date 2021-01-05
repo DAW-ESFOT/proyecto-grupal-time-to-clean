@@ -15,4 +15,12 @@ class Neighborhoods extends Model
         'link',
         'name',
     ];
+
+    public function complaints(){
+        return $this->hasMany('App\Models\Complaint');
+    }
+
+    public function truck(){
+        return $this->belongsTo('App\Models\Truck');
+    }
 }
