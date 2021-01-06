@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Truck;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class TrucksTableSeeder extends Seeder
