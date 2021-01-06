@@ -17,56 +17,17 @@ class TrucksTableSeeder extends Seeder
         // Vaciar la tabla.
         Truck::truncate();
         $faker = \Faker\Factory::create();
-        // Crear artículos ficticios en la tabla
-        Truck::create([
-            'license_plate' => "PCI-7356",
-            'type' => "Automático",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCA-7126",
-            'type' => "Automático",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCB-7456",
-            'type' => "Automático",
-            'working' => false,
-        ]);
-        Truck::create([
-            'license_plate' => "PCC-1256",
-            'type' => "Automático",
-            'working' => false,
-        ]);
-        Truck::create([
-            'license_plate' => "PCD-7311",
-            'type' => "Manual",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCE-7387",
-            'type' => "Automático",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCF-6756",
-            'type' => "Manual",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCG-4556",
-            'type' => "Manual",
-            'working' => false,
-        ]);
-        Truck::create([
-            'license_plate' => "PCH-7309",
-            'type' => "Manual",
-            'working' => true,
-        ]);
-        Truck::create([
-            'license_plate' => "PCJ-7666",
-            'type' => "Automático",
-            'working' => true,
-        ]);
+        //Inicio de sesion de los users para asignarles un truck
+        $users = App\Models\User::all();
+        foreach ($users as $user) {
+            if($user->role != 'Admin') {
+                JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
+                Truck::create([
+                    'license_plate' => $faker->numerify('PAC-####'),
+                    'type' => $faker->randomElement(['Automático', 'Manual']),
+                    'working' => true,
+                ]);
+            }
+        }
     }
 }
