@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Neighborhoods;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Truck;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class NeighborhoodsTableSeeder extends Seeder
 {
@@ -16,18 +19,25 @@ class NeighborhoodsTableSeeder extends Seeder
     {
         //Vaciar la tabla
         Neighborhoods::truncate();
-
         $faker = \Faker\Factory::create();
 
-        //Crear barrios ficitcios en la tabla
-        for($i = 0; $i < 20 ; $i++){
-            Neighborhoods::create([
-                'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
-                'end_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
-                'days'=> $faker->dayOfWeek($max = 'now'),
-                'link'=> $faker->url,
-                'name'=> $faker->city,
-            ]);
+        //Inicio de sesion de los users para asignar un camion recolectos a un usuario
+        $users = User::all();
+        foreach ($users as $user) {
+
+            JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
+            $trucks = Truck::all();
+            foreach ($trucks as $truck) {
+                Neighborhoods::create([
+                    'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
+                    'end_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
+                    'days'=> $faker->dayOfWeek($max = 'now'),
+                    'link'=> $faker->url,
+                    'name'=> $faker->city,
+                    'truck_id'=> $truck->id,
+                ]);
+            }
         }
+
     }
 }

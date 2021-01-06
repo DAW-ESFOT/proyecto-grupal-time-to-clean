@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Complaint;
+use App\Models\Neighborhoods;
 use Illuminate\Database\Seeder;
 
 class ComplaintsTableSeeder extends Seeder
@@ -17,17 +18,20 @@ class ComplaintsTableSeeder extends Seeder
         //Vaciar la tabla
         Complaint::truncate();
         $faker = \Faker\Factory::create();
-
-        //Crear datos ficticios en la tabla
-
-        for($i = 0; $i < 10; $i++) {
-            Complaint::create([
-                'complaint'=> $faker->paragraph,
-                'username'=> $faker->name,
-                'email'=> $faker->email,
-                'state'=> 'Pendiente',
-                'observation'=>''
-            ]);
+        //Asignacion de quejas ficticias a barrios
+        $neighborhoods = Neighborhoods::all();
+        foreach ($neighborhoods as $neighborhood) {
+            $num_complaint= 2;
+            for ($i = 0; $i < $num_complaint; $i++){
+                Complaint::create([
+                    'complaint'=> $faker->paragraph,
+                    'username'=> $faker->name,
+                    'email'=> $faker->email,
+                    'state'=> 'Pendiente',
+                    'observation'=>'',
+                    'neighborhood_id'=> $neighborhood->id,
+                ]);
+            }
         }
     }
 }

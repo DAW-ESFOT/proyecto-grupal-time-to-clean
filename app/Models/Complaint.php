@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Complaint extends Model
 {
@@ -15,6 +16,7 @@ class Complaint extends Model
         'state',
         'observation'
     ];
+
     public function neighborhood(){
         return $this->belongsTo('App\Models\Neighborhoods');
     }

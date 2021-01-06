@@ -15,8 +15,8 @@ class CreateTrucksTable extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('license_plate');
-            $table->string('type');
+            $table->string('license_plate',8);
+            $table->string('type',10);
             $table->boolean('working');
             $table->timestamps();
         });
