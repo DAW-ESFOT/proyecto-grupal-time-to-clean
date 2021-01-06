@@ -17,13 +17,6 @@ class Complaint extends Model
         'observation'
     ];
 
-    public static function boot(){
-        parent::boot();
-        static::creating(function ($complaint) {
-            $complaint->neighborhood_id = Auth::id();
-        });
-    }
-
     public function neighborhood(){
         return $this->belongsTo('App\Models\Neighborhoods');
     }

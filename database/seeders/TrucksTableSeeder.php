@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Truck;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+
 
 class TrucksTableSeeder extends Seeder
 {
@@ -18,7 +20,7 @@ class TrucksTableSeeder extends Seeder
         Truck::truncate();
         $faker = \Faker\Factory::create();
         //Inicio de sesion de los users para asignarles un truck
-        $users = App\Models\User::all();
+        $users = User::all();
         foreach ($users as $user) {
             if($user->role != 'Admin') {
                 JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);

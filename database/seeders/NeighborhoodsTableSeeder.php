@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Neighborhoods;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Truck;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class NeighborhoodsTableSeeder extends Seeder
 {
@@ -19,11 +22,11 @@ class NeighborhoodsTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         //Inicio de sesion de los users para asignar un camion recolectos a un usuario
-        $users = App\Models\User::all();
+        $users = User::all();
         foreach ($users as $user) {
 
             JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
-            $trucks = App\Models\Trucks::all();
+            $trucks = Truck::all();
             foreach ($trucks as $truck) {
                 Neighborhoods::create([
                     'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
