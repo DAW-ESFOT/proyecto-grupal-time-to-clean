@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Neighborhoods;
+use App\Http\Resources\Neighborhood as NeighborhoodResource;
+use App\Http\Resources\NeighborhoodCollection;
 use Illuminate\Http\Request;
 
 class NeighborhoodController extends Controller
 {
     public function index()
     {
-        return Neighborhoods::all();
+        return new NeighborhoodCollection(Neighborhoods::paginate(10));;
     }
     public function show(Neighborhoods $neighborhood)
     {
-        return $neighborhood;
+        return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
     public function store(Request $request)
     {
