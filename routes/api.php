@@ -27,8 +27,16 @@ Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
+Route::get('neighborhoods/{neighborhood}/complaints', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsComplaint');
+Route::get('trucks/{truck}/neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNeighborhood');
+Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
+
+
 
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
+
+Route::get('users/trucks/neighborhoods/complaints', 'App\Http\Controllers\UserController@showUserWithComplaints');
+
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'App\Http\Controllers\UserController@getAuthenticatedUser');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Neighborhoods;
 use Illuminate\Http\Request;
 use App\Models\Truck;
 
@@ -13,6 +14,13 @@ class TruckController extends Controller
     public function show(Truck $truck){
         return $truck;
     }
+
+    public function showTrucksNeighborhood(Truck $truck, Neighborhoods $neighborhood)
+    {
+        $truck= $neighborhood->where('truck_id', $truck['id'])->get();
+        return $truck;
+    }
+
     public function store(Request $request)
     {
         $truck = Truck::create($request->all());

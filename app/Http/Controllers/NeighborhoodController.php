@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\Neighborhoods;
 use App\Http\Resources\Neighborhood as NeighborhoodResource;
 use App\Http\Resources\NeighborhoodCollection;
@@ -17,6 +18,14 @@ class NeighborhoodController extends Controller
     {
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
+
+    public function showNeighborhoodsComplaint(Neighborhoods $neighborhood, Complaint $complaints)
+    {
+        $neighborhood = $complaints->where('neighborhood_id', $neighborhood['id'])->get();
+        return $neighborhood;
+    }
+
+
     public function store(Request $request)
     {
         $neighborhood = Neighborhoods::create($request->all());
