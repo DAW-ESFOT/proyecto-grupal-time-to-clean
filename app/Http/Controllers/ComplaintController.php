@@ -13,6 +13,29 @@ class ComplaintController extends Controller
     public function show(Complaint $complaint){
         return $complaint;
     }
+
+    public function showDriversWithComplaints(){
+
+        $drivers = array();
+        $complaints = Complaint::all();
+
+        foreach($complaints as $complaint){
+            //$neighborhood = $complaint->neighborhood()->where(  );  ->limit()
+            $neighborhood = $complaint->neighborhood;
+            $truck = $neighborhood->truck;
+            $user = $truck->user;
+
+            $drivers[]=$user;
+        }
+
+
+        return  response()->json($drivers, 200);
+    }
+
+    //$user
+
+
+
     public function store(Request $request)
     {
         $complaint = Complaint::create($request->all());

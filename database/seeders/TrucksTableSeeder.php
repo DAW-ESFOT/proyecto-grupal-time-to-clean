@@ -32,5 +32,14 @@ class TrucksTableSeeder extends Seeder
                 ]);
             }
         }
+
+        for($i = 0; $i < 5; $i++){
+            Truck::create([
+                'license_plate' => $faker->numerify('PAC-####'),
+                'type' => $faker->randomElement(['Automático', 'Manual']),
+                'working' => false,
+                'user_id'=>null,
+            ]);
+        }
     }
 }

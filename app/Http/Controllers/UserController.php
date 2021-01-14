@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
+use App\Models\Neighborhoods;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,6 +75,21 @@ class UserController extends Controller
     public function show(User $user){
         return $user;
     }
+
+
+    public function showUserWithComplaints(User $user, Complaint  $complaints, Trucks $trucks, Neighborhoods $neighborhoods){
+
+        //$primeros = $user->where( 'Conductor', $user->role );
+
+
+
+
+
+
+        return ;
+    }
+
+
     public function store(Request $request){
         $user = User::create($request->all());
         return response()->json($user,201);
