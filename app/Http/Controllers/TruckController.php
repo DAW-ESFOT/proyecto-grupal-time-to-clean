@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Truck as TruckResource;
+use App\Http\Resources\TruckCollection as TruckCollection;
 use App\Models\Neighborhoods;
 use Illuminate\Http\Request;
 use App\Models\Truck;
@@ -9,10 +11,10 @@ use App\Models\Truck;
 class TruckController extends Controller
 {
     public function index(){
-        return Truck::all();
+        return new TruckCollection(Truck::paginate(10));
     }
     public function show(Truck $truck){
-        return $truck;
+        return response()->json(new TruckResource($truck),200);
     }
 
     public function showTrucksNeighborhood(Truck $truck, Neighborhoods $neighborhood)
