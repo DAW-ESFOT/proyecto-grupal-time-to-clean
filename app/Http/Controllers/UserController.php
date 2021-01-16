@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -77,7 +77,7 @@ class UserController extends Controller
     }
 
 
-    public function showUserWithComplaints(User $user, Complaint  $complaints, Trucks $trucks, Neighborhoods $neighborhoods){
+    public function showUserWithComplaints(User $user, Complaint  $complaints, Trucks $trucks, Neighborhood $neighborhoods){
 
         //$primeros = $user->where( 'Conductor', $user->role );
 

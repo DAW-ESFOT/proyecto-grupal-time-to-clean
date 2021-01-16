@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;

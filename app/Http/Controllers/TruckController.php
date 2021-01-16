@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use Illuminate\Http\Request;
 use App\Models\Truck;
 
@@ -15,7 +15,7 @@ class TruckController extends Controller
         return $truck;
     }
 
-    public function showTrucksNeighborhood(Truck $truck, Neighborhoods $neighborhood)
+    public function showTrucksNeighborhood(Truck $truck, Neighborhood $neighborhood)
     {
         $truck= $neighborhood->where('truck_id', $truck['id'])->get();
         return $truck;
