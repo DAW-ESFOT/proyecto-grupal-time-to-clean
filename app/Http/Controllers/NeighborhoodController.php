@@ -6,6 +6,8 @@ use App\Models\Complaint;
 use App\Models\Neighborhood;
 use App\Http\Resources\Neighborhood as NeighborhoodResource;
 use App\Http\Resources\NeighborhoodCollection;
+use App\Models\Truck;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NeighborhoodController extends Controller
@@ -19,12 +21,18 @@ class NeighborhoodController extends Controller
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
 
-    public function showNeighborhoodsComplaint(Neighborhood $neighborhood, Complaint $complaints)
+    public function showNeighborhoodsComplaint(Neighborhood $neighborhood)
     {
-        $neighborhood = $complaints->where('neighborhood_id', $neighborhood['id'])->get();
-        return $neighborhood;
+        $complaints = Complaint::all();
+        $neighborhood = $complaints->where('neighborhood_id', $neighborhood['id']);
+        return response()->json($neighborhood, 200);
     }
-
+    public function showTruckOfNeighborhood(Neighborhood $neighborhood)
+    {
+        $trucks = Truck::all();
+        $neighborhood = $trucks->where('id', $neighborhood['truck_id']);
+        return response()->json($neighborhood, 200);
+    }
 
     public function store(Request $request)
     {

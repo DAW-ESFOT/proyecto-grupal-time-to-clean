@@ -77,18 +77,6 @@ class UserController extends Controller
     }
 
 
-    public function showUserWithComplaints(User $user, Complaint  $complaints, Trucks $trucks, Neighborhood $neighborhoods){
-
-        //$primeros = $user->where( 'Conductor', $user->role );
-
-
-
-
-
-
-        return ;
-    }
-
 
     public function store(Request $request){
         $user = User::create($request->all());
