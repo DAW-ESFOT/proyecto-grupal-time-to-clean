@@ -18,6 +18,6 @@ class Complaint extends Model
     ];
 
     public function neighborhood(){
-        return $this->belongsTo('App\Models\Neighborhoods');
+        return $this->belongsTo('App\Models\Neighborhood');
     }
 }

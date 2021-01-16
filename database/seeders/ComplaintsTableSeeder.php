@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Complaint;
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use Illuminate\Database\Seeder;
 
 class ComplaintsTableSeeder extends Seeder
@@ -19,7 +19,7 @@ class ComplaintsTableSeeder extends Seeder
         Complaint::truncate();
         $faker = \Faker\Factory::create();
         //Asignacion de quejas ficticias a barrios
-        $neighborhoods = Neighborhoods::all();
+        $neighborhoods = Neighborhood::all();
         foreach ($neighborhoods as $neighborhood) {
             $num_complaint= 2;
             for ($i = 0; $i < $num_complaint; $i++){

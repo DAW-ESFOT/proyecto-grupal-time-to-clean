@@ -19,7 +19,7 @@ class Truck extends Model
     }
 
     public function neighborhoods(){
-        return $this->hasMany('App\Models\Neighborhoods');
+        return $this->hasMany('App\Models\Neighborhood');
     }
 
     public function user(){

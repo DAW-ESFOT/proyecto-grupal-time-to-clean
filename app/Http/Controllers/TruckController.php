@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Truck;
 use App\Http\Resources\Truck as TruckResource;
 use App\Http\Resources\TruckCollection as TruckCollection;
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use Illuminate\Http\Request;
-use App\Models\Truck;
+
 
 class TruckController extends Controller
 {
@@ -17,7 +18,7 @@ class TruckController extends Controller
         return response()->json(new TruckResource($truck),200);
     }
 
-    public function showTrucksNeighborhood(Truck $truck, Neighborhoods $neighborhood)
+    public function showTrucksNeighborhood(Truck $truck, Neighborhood $neighborhood)
     {
         $truck= $neighborhood->where('truck_id', $truck['id'])->get();
         return $truck;

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Neighborhoods;
+use App\Models\Neighborhood;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Truck;
@@ -18,7 +18,7 @@ class NeighborhoodsTableSeeder extends Seeder
     public function run()
     {
         //Vaciar la tabla
-        Neighborhoods::truncate();
+        Neighborhood::truncate();
         $faker = \Faker\Factory::create();
 
         //Inicio de sesion de los users para asignar un camion recolectos a un usuario
@@ -28,7 +28,7 @@ class NeighborhoodsTableSeeder extends Seeder
             JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
             $trucks = Truck::all();
             foreach ($trucks as $truck) {
-                Neighborhoods::create([
+                Neighborhood::create([
                     'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
                     'end_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
                     'days'=> $faker->dayOfWeek($max = 'now'),
