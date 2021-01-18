@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Complaint;
-use App\Models\Neighborhood;
+
 use App\Models\User;
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,17 +67,15 @@ class UserController extends Controller
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
             return response()->json(['token_absent'], $e->getStatusCode());
         }
-        return response()->json(compact('user'));
+        return response()->json(new UserCollection(compact('user')),200);
     }
     public function index()
     {
-        return User::all();
+        return new UserCollection(User::paginate(3));
     }
     public function show(User $user){
-        return $user;
+        return response()->json(new UserResource($user),200);
     }
-
-
 
     public function store(Request $request){
         $user = User::create($request->all());
