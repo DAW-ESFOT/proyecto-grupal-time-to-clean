@@ -78,6 +78,20 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+        $messages= [
+            'required'=> 'El campo :attribute es obligatorio.',
+
+        ];
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'birthdate' => 'required',
+            'type' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'role' => 'required|string|max:255',
+            'cellphone' => 'required|size:9',
+        ],$messages);
         $user = User::create($request->all());
         return response()->json($user,201);
     }
