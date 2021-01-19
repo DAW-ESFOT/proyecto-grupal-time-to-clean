@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\Models\Truck;
+use App\Http\Resources\Truck as TruckResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Neighborhood extends JsonResource
@@ -21,8 +22,8 @@ class Neighborhood extends JsonResource
             'end_time' => $this->end_time,
             'days'=>$this->days,
             'link'=>$this->link,
-
-            //'truck_id'=> TruckResource::collection($this->id),
+            'truck_id'=> $this->truck_id,
+            //'truck_id'=> new TruckResource(Truck::find($this->truck_id)),
         ];
     }
 }
