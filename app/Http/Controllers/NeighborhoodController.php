@@ -47,6 +47,18 @@ class NeighborhoodController extends Controller
 
     public function store(Request $request)
     {
+        $messages= [
+            'required'=> 'El campo :attribute es obligatorio.',
+        ];
+
+        $request->validate([
+            'start_time'=>'required',
+            'end_time'=>'required',
+            'days' =>'required|string|max:255',
+            'link' =>'required|string',
+            'name'=>'required|string|max:255',
+        ],$messages);
+
         $neighborhood = Neighborhood::create($request->all());
         return response()->json($neighborhood, 201);
     }
