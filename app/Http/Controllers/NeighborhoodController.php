@@ -27,6 +27,7 @@ class NeighborhoodController extends Controller
         $neighborhood = $complaints->where('neighborhood_id', $neighborhood['id']);
         return response()->json($neighborhood, 200);
     }
+
     public function showTruckOfNeighborhood(Neighborhood $neighborhood)
     {
         $trucks = Truck::all();
@@ -34,11 +35,34 @@ class NeighborhoodController extends Controller
         return response()->json($neighborhood, 200);
     }
 
+    public function showDriverOfNeighborhood(Neighborhood $neighborhood)
+    {
+        $driver = array();
+        $truck = $neighborhood->truck;
+        $user = $truck->user;
+        $driver[]=$user;
+
+        return  response()->json($driver, 200);
+    }
+
     public function store(Request $request)
     {
+        $messages= [
+            'required'=> 'El campo :attribute es obligatorio.',
+        ];
+
+        $request->validate([
+            'start_time'=>'required',
+            'end_time'=>'required',
+            'days' =>'required|string|max:255',
+            'link' =>'required|string',
+            'name'=>'required|string|max:255',
+        ],$messages);
+
         $neighborhood = Neighborhood::create($request->all());
         return response()->json($neighborhood, 201);
     }
+
     public function update(Request $request, Neighborhood $neighborhood)
     {
         $neighborhood->update($request->all());
