@@ -22,7 +22,7 @@ use App\Models\Complaint;
 });
 */
 //Users-Drivers
-Route::post('register', 'App\Http\Controllers\UserController@register');
+
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
@@ -39,7 +39,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'App\Http\Controllers\UserController@index');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
-    Route::post('users', 'App\Http\Controllers\UserController@store');
+    Route::post('register', 'App\Http\Controllers\UserController@register');
     Route::put('users/{user}', 'App\Http\Controllers\UserController@update');
     Route::delete('users/{user}', 'App\Http\Controllers\UserController@delete');
 
