@@ -26,10 +26,24 @@ class TruckController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'license_plate' => 'required|alpha_dash|unique:trucks|max:7',
+            'type' => 'required|string|max:10',
+            'working' => 'required'|'boolean',
+        ]);
+
         $truck = Truck::create($request->all());
         return response()->json($truck, 201);
     }
     public function update(Request $request, Truck $truck){
+
+        $request->validate([
+            'license_plate' => 'required|alpha_dash|unique:trucks,license_plate,'.$truck->id.'|max:7',
+            'type' => 'required|string|max:10',
+            'working' => 'required'|'boolean',
+        ]);
+
         $truck ->update($request->all());
         return response()->json($truck, 200);
     }
