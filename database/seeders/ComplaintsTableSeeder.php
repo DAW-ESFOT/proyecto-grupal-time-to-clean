@@ -30,6 +30,7 @@ class ComplaintsTableSeeder extends Seeder
                     'state'=> 'Pendiente',
                     'observation'=>'',
                     'neighborhood_id'=> $neighborhood->id,
+                    'truck_id'=>$neighborhood->truck_id
                 ]);
             }
         }

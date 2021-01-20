@@ -20,6 +20,7 @@ class CreateComplaintsTable extends Migration
             $table->string('email',35);
             $table->string('state',15);
             $table->text('observation');
+            $table->unsignedBigInteger('truck_id');
             $table->timestamps();
         });
     }
