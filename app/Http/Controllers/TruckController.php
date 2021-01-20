@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\Truck;
 use App\Http\Resources\Truck as TruckResource;
 use App\Http\Resources\TruckCollection as TruckCollection;
@@ -20,8 +21,23 @@ class TruckController extends Controller
 
     public function showTrucksNeighborhood(Truck $truck, Neighborhood $neighborhood)
     {
+
         $truck= $neighborhood->where('truck_id', $truck['id'])->get();
         return $truck;
+    }
+
+    public function showTruckComplaints(Truck $truck){
+
+        $trucksComplaints = array();
+        $neighborhoods = Neighborhood::where('truck_id', $truck['id'])->get();
+        //dd($neighborhoods);
+
+        foreach($neighborhoods as $neighborhood){
+            $complaints = $neighborhood->complaints->toArray();
+            $trucksComplaints = array_merge($trucksComplaints, $complaints);
+        }
+
+        return response()->json($trucksComplaints, 200);
     }
 
     public function store(Request $request)

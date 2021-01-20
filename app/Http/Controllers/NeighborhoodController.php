@@ -52,8 +52,8 @@ class NeighborhoodController extends Controller
         ];
 
         $request->validate([
-            'start_time'=>'required',
-            'end_time'=>'required',
+            'start_time'=>'required|date_format:H:i:s',
+            'end_time'=>'required|date_format:H:i:s|after:start_time',
             'days' =>'required|string|max:255',
             'link' =>'required|string',
             'name'=>'required|string|max:255',

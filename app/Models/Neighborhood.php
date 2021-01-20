@@ -17,13 +17,6 @@ class Neighborhood extends Model
         'name',
     ];
 
-    public static function boot(){
-        parent::boot();
-        static::creating(function ($neighborhood) {
-            $neighborhood->truck_id = Auth::id();
-        });
-    }
-
     public function complaints(){
         return $this->hasMany('App\Models\Complaint');
     }

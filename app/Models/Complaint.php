@@ -14,7 +14,8 @@ class Complaint extends Model
         'username',
         'email',
         'state',
-        'observation'
+        'observation',
+        'truck_id'
     ];
 
     public function neighborhood(){
