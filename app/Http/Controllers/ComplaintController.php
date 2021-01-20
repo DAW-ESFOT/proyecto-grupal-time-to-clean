@@ -35,8 +35,8 @@ class ComplaintController extends Controller
     {
         $messages= [
             'required'=> 'El campo :attribute es obligatorio.',
-
         ];
+
         $request->validate([
             'complaint' =>'required',
             'username' =>'required|string|max:35',
@@ -46,12 +46,13 @@ class ComplaintController extends Controller
         $complaint = Complaint::create($request->all());
         return response()->json($complaint, 201);
     }
+
     public function update(Request $request, Complaint $complaint)
     {
         $messages= [
             'required'=> 'El campo :attribute es obligatorio.',
-
         ];
+
         $request->validate([
             'complaint' =>'required',
             'username' =>'required|string|max:35',
