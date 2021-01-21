@@ -14,8 +14,10 @@ class AddNeighborhoodIdColumnComplaint extends Migration
     public function up()
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->unsignedBigInteger('neighborhood_id')->nullable();;
+            $table->unsignedBigInteger('neighborhood_id');
             $table->foreign('neighborhood_id')->references('id')->on('neighborhoods')->onDelete('restrict');
+            $table->unsignedBigInteger('truck_id');
+//            $table->unsignedBigInteger('truck_id')->references('truck_id')->on('neighborhoods');
         });
     }
 

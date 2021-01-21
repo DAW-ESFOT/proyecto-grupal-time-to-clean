@@ -31,6 +31,7 @@ Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodCon
 
 Route::get('trucks/{truck}/neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNeighborhood');
 Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
+Route::get('complaints/trucks', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
 

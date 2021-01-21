@@ -11,7 +11,7 @@ class ComplaintController extends Controller
 {
     public function index(){
         $this->authorize('view',Complaint::class);
-        return new ComplaintCollection(Complaint::paginate(10));
+        return new ComplaintCollection(Complaint::paginate(20));
     }
     public function show(Complaint $complaint){
         $this->authorize('view',$complaint);
@@ -33,6 +33,19 @@ class ComplaintController extends Controller
         return  response()->json($drivers, 200);
     }
 
+    public function showTrucksWithComplaints(){
+
+        $trucks = array();
+        $complaints = Complaint::all();
+
+        foreach($complaints as $complaint){
+            $neighborhood = $complaint->neighborhood;
+            $truck = $neighborhood->truck;
+            $trucks[]=$truck;
+        }
+        return  response()->json($trucks, 200);
+    }
+
     public function store(Request $request)
     {
         $messages= [
@@ -42,6 +55,7 @@ class ComplaintController extends Controller
             'complaint' =>'required',
             'username' =>'required|string|max:35',
             'email'=>'required|string|max:35',
+            'neighborhood_id'=>'required'
         ],$messages);
         $complaint = Complaint::create($request->all());
         return response()->json($complaint, 201);

@@ -19,8 +19,7 @@ class CreateComplaintsTable extends Migration
             $table->string('username',35);
             $table->string('email',35);
             $table->string('state',15);
-            $table->text('observation');
-            $table->unsignedBigInteger('truck_id');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }
