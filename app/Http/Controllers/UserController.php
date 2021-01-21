@@ -28,6 +28,7 @@ class UserController extends Controller
         return response()->json(compact('token'));
     }
     public function register(Request $request){
+        $this->authorize('create',User::class);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -56,6 +57,7 @@ class UserController extends Controller
     }
     public function getAuthenticatedUser()
     {
+
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
@@ -71,37 +73,23 @@ class UserController extends Controller
     }
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         return new UserCollection(User::paginate(3));
     }
     public function show(User $user){
+        $this->authorize('view',$user);
         return response()->json(new UserResource($user),200);
     }
 
-    public function store(Request $request){
-        $messages= [
-            'required'=> 'El campo :attribute es obligatorio.',
-
-        ];
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'birthdate' => 'required',
-            'type' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'role' => 'required|string|max:255',
-            'cellphone' => 'required|size:9',
-        ],$messages);
-        $user = User::create($request->all());
-        return response()->json($user,201);
-    }
     public function update(Request $request, User $user)
     {
+        $this->authorize('update',$user);
         $user->update($request->all());
         return response()->json($user,200);
     }
     public function delete(User $user)
     {
+        $this->authorize('update',$user);
         $user->delete();
         return response()->json(null,204);
     }
