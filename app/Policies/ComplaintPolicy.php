@@ -2,19 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Neighborhood;
-use App\Models\Truck;
+use App\Models\Complaint;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NeighborhoodPolicy
+class ComplaintPolicy
 {
     use HandlesAuthorization;
-    public function before($user, $ability){
-        if ($user->isGranted(User::ROLE_SUPERADMIN)) {
-            return true;
-        }
-    }
 
     /**
      * Determine whether the user can view any models.
@@ -25,19 +19,20 @@ class NeighborhoodPolicy
     public function viewAny(User $user)
     {
         //
-        return true;
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Neighborhood  $neighborhood
+     * @param  \App\Models\Complaint  $complaint
      * @return mixed
      */
-    public function view(User $user, Neighborhood $neighborhood)
+    public function view(User $user)
     {
-        return true;
+
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -48,17 +43,18 @@ class NeighborhoodPolicy
      */
     public function create(User $user)
     {
-        return $user->isGranted(User::ROLE_SUPERADMIN);
+        //
+
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Neighborhood  $neighborhood
+     * @param  \App\Models\Complaint  $complaint
      * @return mixed
      */
-    public function update(User $user, Neighborhood $neighborhood)
+    public function update(User $user, Complaint $complaint)
     {
         //
         return $user->isGranted(User::ROLE_SUPERADMIN);
@@ -68,10 +64,10 @@ class NeighborhoodPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Neighborhood  $neighborhood
+     * @param  \App\Models\Complaint  $complaint
      * @return mixed
      */
-    public function delete(User $user, Neighborhood $neighborhood)
+    public function delete(User $user, Complaint $complaint)
     {
         //
         return $user->isGranted(User::ROLE_SUPERADMIN);
@@ -81,10 +77,10 @@ class NeighborhoodPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Neighborhood  $neighborhood
+     * @param  \App\Models\Complaint  $complaint
      * @return mixed
      */
-    public function restore(User $user, Neighborhood $neighborhood)
+    public function restore(User $user, Complaint $complaint)
     {
         //
     }
@@ -93,10 +89,10 @@ class NeighborhoodPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Neighborhood  $neighborhood
+     * @param  \App\Models\Complaint  $complaint
      * @return mixed
      */
-    public function forceDelete(User $user, Neighborhood $neighborhood)
+    public function forceDelete(User $user, Complaint $complaint)
     {
         //
     }

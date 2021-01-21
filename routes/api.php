@@ -52,6 +52,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@delete');
 
 
+
     Route::get('complaints', 'App\Http\Controllers\ComplaintController@index');
     Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
     Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');

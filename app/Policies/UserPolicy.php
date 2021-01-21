@@ -4,10 +4,17 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
     use HandlesAuthorization;
+
+    public function before($user, $ability){
+        if ($user->isGranted(User::ROLE_SUPERADMIN)) {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -15,9 +22,11 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
+
     public function viewAny(User $user)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -29,7 +38,8 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        // DRIVER
+        //
+        return $user->isGranted(User::ROLE_DRIVER) && $user->id === $model->id;
     }
 
     /**
@@ -41,6 +51,7 @@ class UserPolicy
     public function create(User $user)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -53,6 +64,7 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         // DRIVER
+        return $user->isGranted(User::ROLE_DRIVER) && $user->id === $model->id;
     }
 
     /**
@@ -65,6 +77,7 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**

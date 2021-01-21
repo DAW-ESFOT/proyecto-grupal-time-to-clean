@@ -10,6 +10,12 @@ class TruckPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability){
+        if ($user->isGranted(User::ROLE_SUPERADMIN)) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -19,6 +25,7 @@ class TruckPolicy
     public function viewAny(User $user)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -31,6 +38,7 @@ class TruckPolicy
     public function view(User $user, Truck $truck)
     {
         //
+        return $user->isGranted(User::ROLE_DRIVER) && $user->id === $truck->user_id;
     }
 
     /**
@@ -42,6 +50,7 @@ class TruckPolicy
     public function create(User $user)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -54,6 +63,7 @@ class TruckPolicy
     public function update(User $user, Truck $truck)
     {
         //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
@@ -65,7 +75,7 @@ class TruckPolicy
      */
     public function delete(User $user, Truck $truck)
     {
-        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
     /**
