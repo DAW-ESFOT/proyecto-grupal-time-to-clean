@@ -15,6 +15,7 @@ class Complaint extends Model
         'email',
         'state',
         'observation',
+        'neighborhood_id',
         'truck_id'
     ];
 

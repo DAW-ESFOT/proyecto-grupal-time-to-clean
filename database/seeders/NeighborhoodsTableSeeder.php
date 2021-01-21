@@ -20,14 +20,11 @@ class NeighborhoodsTableSeeder extends Seeder
         //Vaciar la tabla
         Neighborhood::truncate();
         $faker = \Faker\Factory::create();
-
-
-
-
             $trucks = Truck::all();
             foreach ($trucks as $truck) {
                 if($truck->working != false){
-                    for($i = 0; $i < 3; $i++){
+                    $num_neighborhood= rand(1, 3);
+                    for($i = 0; $i < $num_neighborhood; $i++){
                         Neighborhood::create([
                             'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
                             'end_time'=> $faker->time($format = 'H:i:s', $max = 'now'),

@@ -21,7 +21,7 @@ class ComplaintsTableSeeder extends Seeder
         //Asignacion de quejas ficticias a barrios
         $neighborhoods = Neighborhood::all();
         foreach ($neighborhoods as $neighborhood) {
-            $num_complaint= 2;
+            $num_complaint= rand(0, 3);
             for ($i = 0; $i < $num_complaint; $i++){
                 Complaint::create([
                     'complaint'=> $faker->paragraph,
