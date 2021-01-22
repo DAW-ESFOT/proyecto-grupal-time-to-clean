@@ -44,9 +44,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('users/{user}', 'App\Http\Controllers\UserController@delete');
 
     //Neighborhods
-    Route::get('neighborhoods/{neighborhood}/complaints', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsComplaint');
-    Route::get('neighborhoods/{neighborhood}/truck', 'App\Http\Controllers\NeighborhoodController@showTruckOfNeighborhood');
-    Route::get('neighborhoods/{neighborhood}/driver', 'App\Http\Controllers\NeighborhoodController@showDriverOfNeighborhood');
+
     Route::post('neighborhoods', 'App\Http\Controllers\NeighborhoodController@store');
     Route::put('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@update');
     Route::delete('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@delete');

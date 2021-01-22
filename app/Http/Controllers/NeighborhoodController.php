@@ -21,29 +21,6 @@ class NeighborhoodController extends Controller
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
 
-    public function showNeighborhoodsComplaint(Neighborhood $neighborhood)
-    {
-        $complaints = Complaint::all();
-        $neighborhood = $complaints->where('neighborhood_id', $neighborhood['id']);
-        return response()->json($neighborhood, 200);
-    }
-
-    public function showTruckOfNeighborhood(Neighborhood $neighborhood)
-    {
-        $trucks = Truck::all();
-        $neighborhood = $trucks->where('id', $neighborhood['truck_id']);
-        return response()->json($neighborhood, 200);
-    }
-
-    public function showDriverOfNeighborhood(Neighborhood $neighborhood)
-    {
-        $driver = array();
-        $truck = $neighborhood->truck;
-        $user = $truck->user;
-        $driver[]=$user;
-
-        return  response()->json($driver, 200);
-    }
 
     public function store(Request $request)
     {
