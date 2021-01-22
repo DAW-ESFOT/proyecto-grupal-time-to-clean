@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\User;
+use App\Http\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Truck extends JsonResource
@@ -20,7 +21,7 @@ class Truck extends JsonResource
             'license_plate'=>$this->license_plate,
             'type' => $this->type,
             'working' => $this->working,
-            //'user_id'=> User::find($this->user_id),
+            'user'=> new UserResource ( User::find($this->user_id)) ,
         ];
     }
 }
