@@ -14,16 +14,20 @@ class NeighborhoodController extends Controller
 {
     public function index()
     {
-        return new NeighborhoodCollection(Neighborhood::paginate(10));;
+        $this->authorize('view',Neighborhood::class);
+        return new NeighborhoodCollection(Neighborhood::paginate(10));
     }
+
     public function show(Neighborhood $neighborhood)
     {
+        $this->authorize('view',$neighborhood);
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
 
 
     public function store(Request $request)
     {
+        $this->authorize('create',Neighborhood::class);
         $messages= [
             'required'=> 'El campo :attribute es obligatorio.',
         ];
@@ -42,11 +46,13 @@ class NeighborhoodController extends Controller
 
     public function update(Request $request, Neighborhood $neighborhood)
     {
+        $this->authorize('update',$neighborhood);
         $neighborhood->update($request->all());
         return response()->json($neighborhood, 200);
     }
     public function delete(Neighborhood $neighborhood)
     {
+        $this->authorize('delete',$neighborhood);
         $neighborhood->delete();
         return response()->json(null, 204);
     }

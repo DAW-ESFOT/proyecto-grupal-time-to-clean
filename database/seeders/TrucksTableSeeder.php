@@ -33,7 +33,7 @@ class TrucksTableSeeder extends Seeder
         //Inicio de sesion de los users para asignarles un truck
         $users = User::all();
         foreach ($users as $user) {
-            if($user->role != 'Admin') {
+            if($user->role != 'ROLE_SUPERADMIN') {
                 JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
                 Truck::create([
                     'license_plate' => $faker->numerify('PAC-####'),

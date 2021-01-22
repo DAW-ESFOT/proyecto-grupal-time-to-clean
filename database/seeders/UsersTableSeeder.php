@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'type'=> '',
             'email'=> 'admin@prueba.com',
             'password'=> $password,
-            'role'=> 'Admin',
+            'role'=> User::ROLE_SUPERADMIN,
             'cellphone'=> '0987202894',
             ]);
 
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
                 'type'=> $faker->randomElement(['Principal','Suplente']),
                 'email'=> $faker->email,
                 'password'=> $password,
-                'role'=> 'Conductor',
+                'role'=> User::ROLE_DRIVER,
                 'cellphone'=> '0969055431',
             ]);
         }
