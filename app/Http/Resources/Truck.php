@@ -21,7 +21,7 @@ class Truck extends JsonResource
             'license_plate'=>$this->license_plate,
             'type' => $this->type,
             'working' => $this->working,
-            'user'=> new UserResource ( User::find($this->user_id)) ,
+            'user'=> new UserResource(User::find($this->user_id)),
         ];
     }
 }

@@ -25,7 +25,7 @@ class TrucksTableSeeder extends Seeder
             Truck::create([
                 'license_plate' => $faker->numerify('PAC-####'),
                 'type' => $faker->randomElement(['Automático', 'Manual']),
-                'working' => false,
+                'working' => $faker->randomElement([true, false]),
                 'user_id'=>null,
             ]);
         }
