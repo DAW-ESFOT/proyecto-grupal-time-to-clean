@@ -14,13 +14,11 @@ class NeighborhoodController extends Controller
 {
     public function index()
     {
-        $this->authorize('view',Neighborhood::class);
         return new NeighborhoodCollection(Neighborhood::paginate(10));
     }
 
     public function show(Neighborhood $neighborhood)
     {
-        $this->authorize('view',$neighborhood);
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
     }
 
