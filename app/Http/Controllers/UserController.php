@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Truck;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
@@ -80,6 +81,23 @@ class UserController extends Controller
         $this->authorize('view',$user);
         return response()->json(new UserResource($user),200);
     }
+    public function showDriversAlternate(){
+        $drivers = User::where('type','Suplente')->get();
+        return response()->json(new UserCollection($drivers), 200);
+    }
+    public function showDriversWithoutTruck(){
+        $users = User::where(function ($query) {
+            $query->select('user_id')
+                ->from('trucks')
+                ->whereColumn('trucks.user_id','!=','users.id');
+        }, 'Pro')->get();
+        /*$users = User::where('id', '!=', function ($truck) {
+            $truck->selectRaw('t.user_id')->from('trucks as t');
+        })->get();*/
+        return response()->json(new UserCollection($users), 200);
+    }
+
+
 
     public function update(Request $request, User $user)
     {
@@ -89,7 +107,7 @@ class UserController extends Controller
     }
     public function delete(User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('delete',$user);
         $user->delete();
         return response()->json(null,204);
     }
