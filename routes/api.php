@@ -32,12 +32,6 @@ Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showD
 Route::get('complaints/trucks', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
-// Rutas para Trucks
-Route::get('trucks/working', 'App\Http\Controllers\truckController@showTrucksWorking');
-Route::get('trucks/noworking', 'App\Http\Controllers\truckController@showTrucksNoWorking');
-Route::get('trucks/nodrivers', 'App\Http\Controllers\truckController@showTrucksNoDriver');
-Route::get('trucks/drivers', 'App\Http\Controllers\truckController@showTrucksDriver');
-
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'App\Http\Controllers\UserController@index');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
@@ -64,6 +58,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //Trucks
     Route::get('trucks', 'App\Http\Controllers\truckController@index');
     Route::get('trucks/{truck}', 'App\Http\Controllers\truckController@show');
+    Route::get('working/trucks', 'App\Http\Controllers\truckController@showTrucksWorking');
+    Route::get('noworking/trucks', 'App\Http\Controllers\truckController@showTrucksNoWorking');
+    Route::get('nodrivers/trucks', 'App\Http\Controllers\truckController@showTrucksNoDriver');
+    Route::get('drivers/trucks', 'App\Http\Controllers\truckController@showTrucksDriver');
     Route::get('trucks/{truck}/neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNeighborhood');
     Route::get('trucks/{truck}/complaints', 'App\Http\Controllers\truckController@showTruckComplaints');
     Route::post('trucks', 'App\Http\Controllers\truckController@store');
