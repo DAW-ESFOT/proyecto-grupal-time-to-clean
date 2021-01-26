@@ -86,15 +86,28 @@ class UserController extends Controller
         return response()->json(new UserCollection($drivers), 200);
     }
     public function showDriversWithoutTruck(){
-        $users = User::where(function ($query) {
+        $trucks=Truck::all();
+        $userwithTruck=array();
+
+        foreach ($trucks as $truck){
+            $userwithTruck[]=$truck['user_id'];
+        }
+
+        $drivers=User::whereNotIn('id',$userwithTruck)->get();
+        //dd($drivers);
+
+        /*$users = User::where(function ($query) {
             $query->select('user_id')
                 ->from('trucks')
-                ->whereColumn('trucks.user_id','!=','users.id');
-        }, 'Pro')->get();
-        /*$users = User::where('id', '!=', function ($truck) {
-            $truck->selectRaw('t.user_id')->from('trucks as t');
+                ->whereColumn('trucks.user_id','users.id');
+        }, 'Pro')->distinct()->get();*/
+
+
+        /*$users = User::where('id', function ($query) {
+            $query->selectRaw('t.user_id')->from('trucks as t');
         })->get();*/
-        return response()->json(new UserCollection($users), 200);
+
+        return response()->json(new UserCollection($drivers), 200);
     }
 
 
