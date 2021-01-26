@@ -37,6 +37,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
     Route::get('type/users', 'App\Http\Controllers\UserController@showDriversAlternate');
+    Route::get('withTruck/users', 'App\Http\Controllers\UserController@showDriversWithTruck');
     Route::get('without/users', 'App\Http\Controllers\UserController@showDriversWithoutTruck');
     Route::post('register', 'App\Http\Controllers\UserController@register');
     Route::put('users/{user}', 'App\Http\Controllers\UserController@update');
@@ -44,6 +45,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Neighborhods
 
+
+    Route::get('notruck/neighborhoods', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsWithoutTruck');
+    Route::get('nocomplaints/neighborhoods', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsWithoutComplaints');
     Route::post('neighborhoods', 'App\Http\Controllers\NeighborhoodController@store');
     Route::put('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@update');
     Route::delete('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@delete');
