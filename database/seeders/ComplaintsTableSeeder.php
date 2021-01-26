@@ -28,7 +28,7 @@ class ComplaintsTableSeeder extends Seeder
                     'username'=> $faker->name,
                     'email'=> $faker->email,
                     'state'=> 'Pendiente',
-                    'observation'=>'',
+                    'observation'=>null,
                     'neighborhood_id'=> $neighborhood->id,
                     'truck_id'=>$neighborhood->truck_id
                 ]);
