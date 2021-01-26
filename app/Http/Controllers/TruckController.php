@@ -26,21 +26,25 @@ class TruckController extends Controller
     }
 
     public function showTrucksDriver(){
+        $this->authorize('viewAny', Truck::class);
         $drivers = Truck::where('user_id','!=',NULL)->get();
         return response()->json(new TruckCollection($drivers), 200);
     }
 
     public function showTrucksNoDriver(){
+        $this->authorize('viewAny', Truck::class);
         $noDrivers = Truck::where('user_id',NULL)->get();
         return response()->json($noDrivers, 200);
     }
 
     public function showTrucksWorking(){
+        $this->authorize('viewAny', Truck::class);
         $working =Truck::where('working',true)->get();
         return response()->json(new TruckCollection($working), 200);
     }
 
     public function showTrucksNoWorking(){
+        $this->authorize('viewAny', Truck::class);
         $noWorking = Truck::where('working',false)->get();
         return response()->json($noWorking, 200);
     }
@@ -53,12 +57,14 @@ class TruckController extends Controller
             $complaints = $neighborhood->complaints->toArray();
             $trucksComplaints = array_merge($trucksComplaints, $complaints);
         }*/
+        $this->authorize('viewAny', Truck::class);
         $comlaints = Complaint::where('truck_id', $truck['id'])->get();
         return response()->json(new ComplaintCollection($comlaints), 200);
     }
 
     public function showTrucksNeighborhood(Truck $truck, Neighborhood $neighborhood)
     {
+        $this->authorize('viewAny', Truck::class);
         $truck= $neighborhood->where('truck_id', $truck['id'])->get();
         return response()->json(new NeighborhoodCollection($truck), 200);
     }
