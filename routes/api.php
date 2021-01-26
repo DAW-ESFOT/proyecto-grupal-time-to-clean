@@ -28,8 +28,7 @@ Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
 
-Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
-Route::get('complaints/trucks', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
+
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
 // Rutas para Trucks
