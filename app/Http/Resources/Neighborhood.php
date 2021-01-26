@@ -33,8 +33,6 @@ class Neighborhood extends JsonResource
             'truck'=> $this->when($isAdmin,new TruckResource(Truck::find($this->truck_id))),
             'complaint'=> $this->when($isAdmin,new ComplaintCollection($this->complaints)),
             //'complaints'=> $this->when($isAdmin,$this->complaints),
-
-
         ];
 
     }
