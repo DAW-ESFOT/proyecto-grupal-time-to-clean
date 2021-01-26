@@ -27,9 +27,6 @@ Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
-
-Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
-Route::get('complaints/trucks', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
@@ -43,15 +40,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('users/{user}', 'App\Http\Controllers\UserController@delete');
 
     //Neighborhods
-
     Route::post('neighborhoods', 'App\Http\Controllers\NeighborhoodController@store');
     Route::put('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@update');
     Route::delete('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@delete');
 
-
-
+    //Complaints
     Route::get('complaints', 'App\Http\Controllers\ComplaintController@index');
     Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
+    Route::get('complaints/drivers', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
+    Route::get('complaints/trucks', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
+    Route::get('complaints/neighborhoods', 'App\Http\Controllers\ComplaintController@showNeighborhoodsWithComplaints');
     Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');
     Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
 
