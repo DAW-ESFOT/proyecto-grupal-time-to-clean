@@ -88,7 +88,6 @@ class UserController extends Controller
     public function showDriversWithoutTruck(){
         $trucks=Truck::all();
         $userwithTruck=array();
-
         foreach ($trucks as $truck){
             $userwithTruck[]=$truck['user_id'];
         }
@@ -101,13 +100,17 @@ class UserController extends Controller
                 ->from('trucks')
                 ->whereColumn('trucks.user_id','users.id');
         }, 'Pro')->distinct()->get();*/
-
-
-        /*$users = User::where('id', function ($query) {
-            $query->selectRaw('t.user_id')->from('trucks as t');
-        })->get();*/
-
         return response()->json(new UserCollection($drivers), 200);
+    }
+    public function showDriversWithTruck(){
+        $trucks = Truck::all();
+        $driversWithTruck = array();
+        foreach($trucks as $truck){
+            $driversWithTruck[] = $truck['user_id'];
+        }
+        $users  = User::whereIn('id', $driversWithTruck)->get();
+
+        return response()->json($users, 200);
     }
 
 
