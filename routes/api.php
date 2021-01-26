@@ -29,6 +29,8 @@ Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index')
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
+
+
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'App\Http\Controllers\UserController@index');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');

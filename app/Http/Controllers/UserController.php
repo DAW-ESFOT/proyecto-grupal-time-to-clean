@@ -82,10 +82,12 @@ class UserController extends Controller
         return response()->json(new UserResource($user),200);
     }
     public function showDriversAlternate(){
+        $this->authorize('create',User::class);
         $drivers = User::where('type','Suplente')->get();
         return response()->json(new UserCollection($drivers), 200);
     }
     public function showDriversWithoutTruck(){
+        $this->authorize('create',User::class);
         $trucks=Truck::all();
         $userwithTruck=array();
         foreach ($trucks as $truck){
@@ -103,6 +105,7 @@ class UserController extends Controller
         return response()->json(new UserCollection($drivers), 200);
     }
     public function showDriversWithTruck(){
+        $this->authorize('create',User::class);
         $trucks = Truck::all();
         $driversWithTruck = array();
         foreach($trucks as $truck){

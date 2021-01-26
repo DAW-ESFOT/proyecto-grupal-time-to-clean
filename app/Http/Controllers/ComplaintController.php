@@ -21,6 +21,7 @@ class ComplaintController extends Controller
 
     public function showDriversWithComplaints(){
 
+        $this->authorize('view',Complaint::class);
         $drivers = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
@@ -34,7 +35,7 @@ class ComplaintController extends Controller
     }
 
     public function showTrucksWithComplaints(){
-
+        $this->authorize('view',Complaint::class);
         $trucks = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
@@ -47,6 +48,7 @@ class ComplaintController extends Controller
     }
 
     public function showNeighborhoodsWithComplaints(){
+        $this->authorize('view',Complaint::class);
         $neighborhoods = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
