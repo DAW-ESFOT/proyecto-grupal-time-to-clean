@@ -86,7 +86,7 @@ class TruckController extends Controller
             'license_plate' => 'required|alpha_dash|unique:trucks,license_plate,'.$truck->id.'|max:8',
             'type' => 'required|string|max:10',
             'working' => 'required|boolean',
-            'user_id' => 'exists:users,id'
+            'user_id' => 'nullable|exists:users,id'
         ]);
 
         $truck ->update($request->all());
