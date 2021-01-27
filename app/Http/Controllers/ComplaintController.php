@@ -71,6 +71,7 @@ class ComplaintController extends Controller
         $complaint = New Complaint ($request->all());
         $neighborhood = Neighborhood::find($request->get('neighborhood_id'));
         $complaint->truck_id = $neighborhood->truck_id;
+        $complaint->state = "Pendiente";
         $complaint->save();
         return response()->json($complaint, 201);
     }
