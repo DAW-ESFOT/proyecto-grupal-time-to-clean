@@ -18,7 +18,21 @@ class ComplaintPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewDriversWithComplaints(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksWithComplaints(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewNeighborhoodsWithComplaints(User $user)
+    {
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
@@ -44,7 +58,6 @@ class ComplaintPolicy
     public function create(User $user)
     {
         //
-
     }
 
     /**
@@ -56,7 +69,6 @@ class ComplaintPolicy
      */
     public function update(User $user, Complaint $complaint)
     {
-        //
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
@@ -69,7 +81,6 @@ class ComplaintPolicy
      */
     public function delete(User $user, Complaint $complaint)
     {
-        //
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
