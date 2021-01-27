@@ -25,7 +25,18 @@ class UserPolicy
 
     public function viewAny(User $user)
     {
-        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+    public function viewDriversAlternate(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+    public function viewDriverswithTrucks(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+    public function viewDriverswithoutTrucks(User $user)
+    {
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 
