@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
@@ -82,37 +83,31 @@ class UserController extends Controller
         return response()->json(new UserResource($user),200);
     }
     public function showDriversAlternate(){
-        $this->authorize('create',User::class);
+        $this->authorize('viewDetailsDriversAlternate',User::class);
         $drivers = User::where('type','Suplente')->get();
         return response()->json(new UserCollection($drivers), 200);
     }
-    public function showDriversWithoutTruck(){
-        $this->authorize('create',User::class);
+    public function showDriversWithoutTruck(User $user){
+        $this->authorize('viewDetailsDriverswithoutTrucks',User::class);
         $trucks=Truck::all();
-        $userwithTruck=array();
+        $driver=array();
         foreach ($trucks as $truck){
-            $userwithTruck[]=$truck['user_id'];
+            if($truck['user_id']!=null)
+            $driver[]=$truck['user_id'];
         }
-        $drivers=User::whereNotIn('id',$userwithTruck)->get();
-        //dd($drivers);
-
-        /*$users = User::where(function ($query) {
-            $query->select('user_id')
-                ->from('trucks')
-                ->whereColumn('trucks.user_id','users.id');
-        }, 'Pro')->distinct()->get();*/
-        return response()->json(new UserCollection($drivers), 200);
+        //dd($driver);
+       $users = DB::table("users")->select('*')
+            ->whereNotIn('id',$driver)->get();
+        return response()->json(new UserCollection($users), 200);
     }
     public function showDriversWithTruck(){
-        $this->authorize('create',User::class);
-        $trucks = Truck::all();
-        $driversWithTruck = array();
-        foreach($trucks as $truck){
-            $driversWithTruck[] = $truck['user_id'];
-        }
-        $users  = User::whereIn('id', $driversWithTruck)->get();
+        $this->authorize('viewDetailsDriverswithTrucks',User::class);
+        $users = DB::table("users")->select('*')
+            ->whereIn('id',function($query){
+                $query->select('user_id')->from('trucks');
+            })->get();
 
-        return response()->json($users, 200);
+        return response()->json(new UserCollection($users), 200);
     }
 
 

@@ -28,6 +28,21 @@ class UserPolicy
         //
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
+    public function viewDetailsDriversAlternate(User $user)
+    {
+        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+    public function viewDetailsDriverswithTrucks(User $user)
+    {
+        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+    public function viewDetailsDriverswithoutTrucks(User $user)
+    {
+        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
 
     /**
      * Determine whether the user can view the model.
