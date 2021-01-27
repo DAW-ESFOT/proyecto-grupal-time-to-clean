@@ -74,9 +74,12 @@ class NeighborhoodController extends Controller
             'name'=>'required|string|max:255',
         ],$messages);
 
+
         $neighborhood->update($request->all());
         return response()->json($neighborhood, 200);
     }
+
+
     public function delete(Neighborhood $neighborhood)
     {
         $this->authorize('delete',$neighborhood);

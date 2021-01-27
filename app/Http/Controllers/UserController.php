@@ -93,7 +93,6 @@ class UserController extends Controller
         foreach ($trucks as $truck){
             $userwithTruck[]=$truck['user_id'];
         }
-
         $drivers=User::whereNotIn('id',$userwithTruck)->get();
         //dd($drivers);
 
