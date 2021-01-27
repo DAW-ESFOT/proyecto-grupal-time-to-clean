@@ -15,6 +15,7 @@ class Neighborhood extends Model
         'days',
         'link',
         'name',
+        'truck_id'
     ];
 
     public function complaints(){
