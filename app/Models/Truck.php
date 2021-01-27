@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Auth;
 class Truck extends Model
 {
     use HasFactory;
-    protected $fillable = ['license_plate', 'type', 'working'];
+    protected $fillable = ['license_plate',
+        'type',
+        'working',
+        'user_id'
+    ];
 
     public static function boot(){
         parent::boot();
