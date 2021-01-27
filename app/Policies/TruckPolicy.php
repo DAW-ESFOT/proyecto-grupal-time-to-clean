@@ -24,7 +24,36 @@ class TruckPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksWithDrivers(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksWithoutDrivers(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksWorking(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksNoWorking(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTruckComplaints(User $user)
+    {
+        return $user->isGranted(User::ROLE_SUPERADMIN);
+    }
+
+    public function viewTrucksNeighborhood(User $user)
+    {
         return $user->isGranted(User::ROLE_SUPERADMIN);
     }
 

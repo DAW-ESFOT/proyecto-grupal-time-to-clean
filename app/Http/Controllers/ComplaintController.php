@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ComplaintController extends Controller
 {
     public function index(){
-        $this->authorize('view',Complaint::class);
+        $this->authorize('viewAny',Complaint::class);
         return new ComplaintCollection(Complaint::paginate(20));
     }
     public function show(Complaint $complaint){
@@ -21,7 +21,7 @@ class ComplaintController extends Controller
 
     public function showDriversWithComplaints(){
 
-        $this->authorize('view',Complaint::class);
+        $this->authorize('viewDriversWithComplaints',Complaint::class);
         $drivers = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
@@ -35,7 +35,7 @@ class ComplaintController extends Controller
     }
 
     public function showTrucksWithComplaints(){
-        $this->authorize('view',Complaint::class);
+        $this->authorize('viewTrucksWithComplaints',Complaint::class);
         $trucks = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
@@ -48,7 +48,7 @@ class ComplaintController extends Controller
     }
 
     public function showNeighborhoodsWithComplaints(){
-        $this->authorize('view',Complaint::class);
+        $this->authorize('viewNeighborhoodsWithComplaints',Complaint::class);
         $neighborhoods = array();
         $complaints = Complaint::all();
         foreach($complaints as $complaint){
