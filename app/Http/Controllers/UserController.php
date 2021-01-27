@@ -83,12 +83,12 @@ class UserController extends Controller
         return response()->json(new UserResource($user),200);
     }
     public function showDriversAlternate(){
-        $this->authorize('viewDetailsDriversAlternate',User::class);
+        $this->authorize('viewDriversAlternate',User::class);
         $drivers = User::where('type','Suplente')->get();
         return response()->json(new UserCollection($drivers), 200);
     }
     public function showDriversWithoutTruck(User $user){
-        $this->authorize('viewDetailsDriverswithoutTrucks',User::class);
+        $this->authorize('viewDriverswithoutTrucks',User::class);
         $trucks=Truck::all();
         $driver=array();
         foreach ($trucks as $truck){
@@ -101,7 +101,7 @@ class UserController extends Controller
         return response()->json(new UserCollection($users), 200);
     }
     public function showDriversWithTruck(){
-        $this->authorize('viewDetailsDriverswithTrucks',User::class);
+        $this->authorize('viewDriverswithTrucks',User::class);
         $users = DB::table("users")->select('*')
             ->whereIn('id',function($query){
                 $query->select('user_id')->from('trucks');
@@ -109,8 +109,6 @@ class UserController extends Controller
 
         return response()->json(new UserCollection($users), 200);
     }
-
-
 
     public function update(Request $request, User $user)
     {
