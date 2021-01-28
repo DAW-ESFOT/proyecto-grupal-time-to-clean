@@ -61,15 +61,15 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
 
     //Trucks
-    Route::get('trucks', 'App\Http\Controllers\truckController@index');
-    Route::get('trucks/{truck}', 'App\Http\Controllers\truckController@show');
-    Route::get('trucks/filter/working', 'App\Http\Controllers\truckController@showTrucksWorking');
-    Route::get('trucks/filter/no-working', 'App\Http\Controllers\truckController@showTrucksNoWorking');
-    Route::get('trucks/filter/without-drivers', 'App\Http\Controllers\truckController@showTrucksNoDriver');
-    Route::get('trucks/filter/with-drivers', 'App\Http\Controllers\truckController@showTrucksDriver');
+    Route::get('trucks', 'App\Http\Controllers\TruckController@index');
+    Route::get('trucks/{truck}', 'App\Http\Controllers\TruckController@show');
+    Route::get('trucks/filter/working', 'App\Http\Controllers\TruckController@showTrucksWorking');
+    Route::get('trucks/filter/no-working', 'App\Http\Controllers\TruckController@showTrucksNoWorking');
+    Route::get('trucks/filter/without-drivers', 'App\Http\Controllers\TruckController@showTrucksNoDriver');
+    Route::get('trucks/filter/with-drivers', 'App\Http\Controllers\TruckController@showTrucksDriver');
     Route::get('trucks/{truck}/neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNeighborhood');
-    Route::get('trucks/{truck}/complaints', 'App\Http\Controllers\truckController@showTruckComplaints');
-    Route::post('trucks', 'App\Http\Controllers\truckController@store');
-    Route::put('trucks/{truck}', 'App\Http\Controllers\truckController@update');
-    Route::delete('trucks/{truck}', 'App\Http\Controllers\truckController@delete');
+    Route::get('trucks/{truck}/complaints', 'App\Http\Controllers\TruckController@showTruckComplaints');
+    Route::post('trucks', 'App\Http\Controllers\TruckController@store');
+    Route::put('trucks/{truck}', 'App\Http\Controllers\TruckController@update');
+    Route::delete('trucks/{truck}', 'App\Http\Controllers\TruckController@delete');
 });
