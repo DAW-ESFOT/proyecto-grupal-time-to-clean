@@ -9,6 +9,7 @@ use App\Http\Resources\NeighborhoodCollection;
 use App\Models\Truck;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NeighborhoodController extends Controller
 {
@@ -23,6 +24,7 @@ class NeighborhoodController extends Controller
     }
 
     public function showNeighborhoodsWithoutTruck(){
+
         $noTruck = Neighborhood::whereNull('truck_id')->get();
         return response()->json($noTruck, 200);
     }
@@ -52,7 +54,7 @@ class NeighborhoodController extends Controller
             'end_time'=>'required|date_format:H:i:s|after:start_time',
             'days' =>'required|string|max:255',
             'link' =>'required|string',
-            'name'=>'required|string|max:255',
+            'name'=>'required|string|unique:neighborhoods|max:255',
         ],$messages);
 
         $neighborhood = Neighborhood::create($request->all());
@@ -71,9 +73,9 @@ class NeighborhoodController extends Controller
             'end_time'=>'required|date_format:H:i:s|after:start_time',
             'days' =>'required|string|max:255',
             'link' =>'required|string',
-            'name'=>'required|string|max:255',
+            'name'=>'required|string|unique:neighborhoods,name,'.$neighborhood->id.'|max:255',
+            'truck_id' => 'nullable|exists:trucks,id'
         ],$messages);
-
 
         $neighborhood->update($request->all());
         return response()->json($neighborhood, 200);
