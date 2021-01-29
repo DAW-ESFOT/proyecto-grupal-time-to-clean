@@ -66,7 +66,7 @@ class ComplaintController extends Controller
             'complaint' =>'required',
             'username' =>'required|string|max:35',
             'email'=>'required|string|max:35',
-            'neighborhood_id'=>'required'
+            'neighborhood_id'=>'required|exists:neighborhoods,id',
         ],$messages);
         $complaint = New Complaint ($request->all());
         $neighborhood = Neighborhood::find($request->get('neighborhood_id'));
