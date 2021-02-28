@@ -27,7 +27,18 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        return response()->json(compact('token'))
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'), // ttl = time to leve
+                '/', //path
+                null, // domain
+                config('app.env') !== 'local', //Secure
+                true, //httpObly
+                false,
+                config('app.env') !== 'local' ? 'None' : 'Lax' //SameSite
+            );
     }
     public function register(Request $request){
         $this->authorize('create',User::class);
@@ -55,7 +66,17 @@ class UserController extends Controller
             'cellphone' => $request->get('cellphone'),
         ]);
         $token = JWTAuth::fromUser($user);
-        return response()->json(compact('user','token'),201);
+        return response()->json(compact('user','token'),201)
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'),
+                '/',
+                null,
+                config('app.env') !== 'local',
+                true,
+                false,
+                config('app.env') !== 'local' ? 'None' : 'Lax');
     }
     public function getAuthenticatedUser()
     {
@@ -122,4 +143,32 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null,204);
     }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+//            Cookie::queue(Cookie::forget('token'));
+//            $cookie = Cookie::forget('token');
+//            $cookie->withSameSite('None');
+            return response()->json([
+                "status" => "success",
+                "message" => "User successfully logged out."
+            ], 200)
+                ->withCookie('token', null,
+                    config('jwt.ttl'),
+                    '/',
+                    null,
+                    config('app.env') !== 'local',
+                    true,
+                    false,
+                    config('app.env') !== 'local' ? 'None' : 'Lax'
+                );
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
+        }
+    }
+
 }

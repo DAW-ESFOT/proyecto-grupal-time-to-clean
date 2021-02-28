@@ -32,6 +32,8 @@ Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
 
 Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::post('logout', 'App\Http\Controllers\UserController@logout');
+
     Route::get('users', 'App\Http\Controllers\UserController@index');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
