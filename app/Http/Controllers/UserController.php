@@ -97,7 +97,7 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-        return new UserCollection(User::paginate(3));
+        return new UserCollection(User::paginate(10));
     }
     public function show(User $user){
         $this->authorize('view',$user);
