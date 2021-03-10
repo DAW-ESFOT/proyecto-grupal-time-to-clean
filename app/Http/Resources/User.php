@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Truck;
+use App\Http\Resources\Truck as TruckResource;
 
 class User extends JsonResource
 {
@@ -23,6 +25,7 @@ class User extends JsonResource
             'email' => $this->email,
             'role' => $this->role,
             'cellphone' => $this->cellphone,
+            'truck'=>$this->truck!==null?$this->truck->license_plate:null
             ];
     }
 }
