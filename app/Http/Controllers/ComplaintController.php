@@ -12,8 +12,10 @@ class ComplaintController extends Controller
 {
     public function index(){
         $this->authorize('viewAny',Complaint::class);
-        return new ComplaintCollection(Complaint::paginate(20));
+        return new ComplaintCollection(Complaint::paginate(10));
     }
+
+
     public function show(Complaint $complaint){
         $this->authorize('view',$complaint);
         return response()->json(new ComplaintResource($complaint),200);
