@@ -3,8 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Truck;
-use App\Http\Resources\Truck as TruckResource;
+
 
 class User extends JsonResource
 {
