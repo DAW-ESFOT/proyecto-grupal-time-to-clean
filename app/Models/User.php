@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function truck(){
-        return $this->belongsTo('App\Models\Truck');
+        return $this->hasOne('App\Models\Truck');
     }
     public function isGranted($role){
         if ($role === $this->role) {
