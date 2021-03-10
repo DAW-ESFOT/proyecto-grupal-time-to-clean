@@ -26,8 +26,8 @@ class NeighborhoodsTableSeeder extends Seeder
                     $num_neighborhood= rand(1, 3);
                     for($i = 0; $i < $num_neighborhood; $i++){
                         Neighborhood::create([
-                            'start_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
-                            'end_time'=> $faker->time($format = 'H:i:s', $max = 'now'),
+                            'start_time'=> date('H:i:s', rand(21600,50400)),
+                            'end_time'=> date('H:i:s', rand(57600,79200)),
                             'days'=> $faker->dayOfWeek($max = 'now'),
                             'link'=> $faker->url,
                             'name'=> $faker->city,
