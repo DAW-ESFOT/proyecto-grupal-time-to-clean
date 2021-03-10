@@ -23,6 +23,7 @@ class User extends JsonResource
             'email' => $this->email,
             'role' => $this->role,
             'cellphone' => $this->cellphone,
+            'truck'=>$this->truck!==null?$this->truck->license_plate:null
             ];
     }
 }
