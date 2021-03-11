@@ -101,6 +101,13 @@ class UserController extends Controller
         $this->authorize('viewAny', User::class);
         return new UserCollection(User::paginate(10));
     }
+    public function showAll()
+    {
+        $this->authorize('viewAny', User::class);
+        return new UserCollection(User::all());
+    }
+
+
     public function show(User $user){
         $this->authorize('view',$user);
         return response()->json(new UserResource($user),200);

@@ -18,6 +18,11 @@ class NeighborhoodController extends Controller
         return new NeighborhoodCollection(Neighborhood::paginate(10));
     }
 
+    public function showAll()
+    {
+        return new NeighborhoodCollection(Neighborhood::all());
+    }
+
     public function show(Neighborhood $neighborhood)
     {
         return response()->json(new NeighborhoodResource($neighborhood), 200);;
