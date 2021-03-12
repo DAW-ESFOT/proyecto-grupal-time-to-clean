@@ -36,6 +36,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('logout', 'App\Http\Controllers\UserController@logout');
 
     Route::get('users', 'App\Http\Controllers\UserController@index');
+    Route::get('users/all', 'App\Http\Controllers\UserController@showAll');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
     Route::get('users/filter/alternate', 'App\Http\Controllers\UserController@showDriversAlternate');
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Complaints
     Route::get('complaints', 'App\Http\Controllers\ComplaintController@index');
+    Route::get('complaints/all', 'App\Http\Controllers\ComplaintController@showAll');
     Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
     Route::get('drivers/filter/with-complaints', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
     Route::get('trucks/filter/with-complaints', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
