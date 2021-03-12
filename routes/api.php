@@ -68,6 +68,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Trucks
     Route::get('trucks', 'App\Http\Controllers\TruckController@index');
+    Route::get('trucks/all', 'App\Http\Controllers\TruckController@showAll');
     Route::get('trucks/{truck}', 'App\Http\Controllers\TruckController@show');
     Route::get('trucks/filter/working', 'App\Http\Controllers\TruckController@showTrucksWorking');
     Route::get('trucks/filter/no-working', 'App\Http\Controllers\TruckController@showTrucksNoWorking');
