@@ -16,7 +16,7 @@ class Complaint extends Model
         'state',
         'observation',
         'neighborhood_id',
-        'truck_id'
+        'truck_id',
     ];
 
     public function neighborhood(){

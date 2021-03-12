@@ -33,7 +33,7 @@ class ComplaintController extends Controller
                 $complaintsState[] = $complaint;
             }
         }
-        return  response()->json($complaintsState, 200);
+        return  response()->json(new ComplaintCollection($complaintsState),200);
     }
     public function findStateProceso(){
         $this->authorize('viewAny',Complaint::class);

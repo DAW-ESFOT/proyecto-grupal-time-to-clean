@@ -19,14 +19,15 @@ class Complaint extends JsonResource
     {
         return [
             'id' => $this->id,
+            'created_at'=> $this->created_at,
             'complaint'=> $this->complaint,
             'username'=> $this->username,
             'email'=> $this->email,
             'state'=> $this->state,
             'observation'=>$this->observation,
-            'truck'=> new TruckResource(Truck::find($this->truck_id)),
-//            'neighborhood_id'=> $this->neighborhood_id,
+            'neighborhood_id'=>$this->neighborhood_id,
 //            'neighborhood'=> new NeighborhoodResource(Neighborhood::find($this->neighborhood_id)),
+            'truck'=> new TruckResource(Truck::find($this->truck_id)),
         ];
     }
 }
