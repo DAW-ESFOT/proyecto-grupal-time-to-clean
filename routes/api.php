@@ -26,6 +26,7 @@ use App\Models\Complaint;
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
 
 Route::get('neighborhoods', 'App\Http\Controllers\NeighborhoodController@index');
+Route::get('neighborhoods/all', 'App\Http\Controllers\NeighborhoodController@showAll');
 Route::get('neighborhoods/{neighborhood}', 'App\Http\Controllers\NeighborhoodController@show');
 Route::post('complaints', 'App\Http\Controllers\ComplaintController@store');
 
@@ -45,7 +46,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('users/{user}', 'App\Http\Controllers\UserController@delete');
 
     //Neighborhods
-
 
     Route::get('neighborhoods/filter/without-trucks', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsWithoutTruck');
     Route::get('neighborhoods/filter/without-complaints', 'App\Http\Controllers\NeighborhoodController@showNeighborhoodsWithoutComplaints');
@@ -73,6 +73,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('trucks/filter/no-working', 'App\Http\Controllers\TruckController@showTrucksNoWorking');
     Route::get('trucks/filter/without-drivers', 'App\Http\Controllers\TruckController@showTrucksNoDriver');
     Route::get('trucks/filter/with-drivers', 'App\Http\Controllers\TruckController@showTrucksDriver');
+    Route::get('trucks/filter/without-neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNoNeighborhood');
     Route::get('trucks/{truck}/neighborhoods', 'App\Http\Controllers\TruckController@showTrucksNeighborhood');
     Route::get('trucks/{truck}/complaints', 'App\Http\Controllers\TruckController@showTruckComplaints');
     Route::post('trucks', 'App\Http\Controllers\TruckController@store');

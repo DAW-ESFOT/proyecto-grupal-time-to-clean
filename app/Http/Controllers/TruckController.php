@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
 use App\Models\Complaint;
 use App\Models\Truck;
 use App\Http\Resources\Truck as TruckResource;
@@ -11,8 +12,10 @@ use App\Http\Resources\Complaint as ComplaintResource;
 use App\Http\Resources\ComplaintCollection as ComplaintCollection;
 use App\Http\Resources\TruckCollection as TruckCollection;
 use App\Models\Neighborhood;
+use App\Models\User;
 use Illuminate\Broadcasting\Broadcasters\NullBroadcaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class TruckController extends Controller
@@ -31,6 +34,20 @@ class TruckController extends Controller
     public function show(Truck $truck){
         $this->authorize('view',$truck);
         return response()->json(new TruckResource($truck),200);
+    }
+
+    public function showTrucksNoNeighborhood()
+    {
+        $this->authorize('view',Truck::class);
+        $neighborhoods=Neighborhood::all();
+        $listTruck=array();
+        foreach ($neighborhoods as $neighborhood){
+            if($neighborhood['truck_id']!=null)
+                $listTruck[]=$neighborhood['truck_id'];
+        }
+        $trucks = DB::table("trucks")->select('*')
+            ->whereNotIn('id',$listTruck)->get();
+        return response()->json(new TruckCollection($trucks), 200);
     }
 
     public function showTrucksDriver(){
@@ -69,6 +86,7 @@ class TruckController extends Controller
         $truck= $neighborhood->where('truck_id', $truck['id'])->get();
         return response()->json(new NeighborhoodCollection($truck), 200);
     }
+
 
     public function store(Request $request)
     {
