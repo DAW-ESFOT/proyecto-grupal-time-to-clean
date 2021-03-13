@@ -39,6 +39,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users/all', 'App\Http\Controllers\UserController@showAll');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
+    Route::get('users/{user}/truck', 'App\Http\Controllers\UserController@showDriverTruck');
+    Route::get('users/{user}/neighborhoods', 'App\Http\Controllers\UserController@showDriverNeighborhoods');
     Route::get('users/filter/alternate', 'App\Http\Controllers\UserController@showDriversAlternate');
     Route::get('users/filter/with-truck', 'App\Http\Controllers\UserController@showDriversWithTruck');
     Route::get('users/filter/without-truck', 'App\Http\Controllers\UserController@showDriversWithoutTruck');
