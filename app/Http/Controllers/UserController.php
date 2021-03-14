@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Neighborhood;
 use App\Models\Truck;
 use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
+use App\Http\Resources\Truck as TruckResource;
+use App\Http\Resources\NeighborhoodCollection;
+use App\Http\Resources\Neighborhood as NeighborhoodResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -107,11 +111,21 @@ class UserController extends Controller
         return new UserCollection(User::all());
     }
 
-
     public function show(User $user){
         $this->authorize('view',$user);
         return response()->json(new UserResource($user),200);
     }
+    public function showDriverTruck(User $user){
+        $this->authorize('view',$user);
+        return response()->json(new TruckResource($user->truck),200);
+    }
+//    public function showDriverNeighborhoods(User $user){
+//        $this->authorize('viewAny',$user);
+//        $neighborhoods = DB::table("neighborhoods")->select('*')
+//            ->whereIn('truck_id',$user->truck)->get();
+//        return response()->json(new NeighborhoodCollection($neighborhoods),200);
+//    }
+
     public function showDriversAlternate(){
         $this->authorize('viewDriversAlternate',User::class);
         $drivers = User::where('type','Suplente')->get();
