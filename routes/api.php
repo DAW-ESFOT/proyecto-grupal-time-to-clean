@@ -1,10 +1,13 @@
 <?php
 
-use App\Models\Neighborhood;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Complaint;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -84,4 +87,35 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('trucks', 'App\Http\Controllers\TruckController@store');
     Route::put('trucks/{truck}', 'App\Http\Controllers\TruckController@update');
     Route::delete('trucks/{truck}', 'App\Http\Controllers\TruckController@delete');
+});
+
+Route::post('/forgot-password',function (Request $request){
+    $request->validate(['email'=>'required|email']);
+    $status=Password::sendResetLink(
+        $request->only('email')
+    );
+    return $status === Password::RESET_LINK_SENT
+        ? response()->json(['status'=>__($status)],200)
+        : response()->json(['status'=>__($status)],400);
+})->middleware('guest')->name('password.email');
+
+Route::post('/reset-password',function (Request $request){
+    $request->validate([
+        'token'=>'required',
+        'email'=>'required|email',
+        'password'=>'required|min:8|confirmed'
+    ]);
+    $status=Password::reset(
+        $request->only('email','password','password_confirmation','token'),
+        function ($user, $password) use ($request){
+            $user->forceFill([
+                'password'=>Hash::make($password)
+            ])->save();
+            $user->setRememberToker(Str::random(60));
+            event(new PasswordReset($user));
+        }
+    );
+    return $status === Password::PASSWORD_RESET
+        ? response()->json(['status'=>__($status)],200)
+        : response()->json(['status'=>__($status)],400);
 });
