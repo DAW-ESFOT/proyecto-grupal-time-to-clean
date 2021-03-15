@@ -111,7 +111,7 @@ Route::post('/reset-password',function (Request $request){
             $user->forceFill([
                 'password'=>Hash::make($password)
             ])->save();
-            $user->setRememberToker(Str::random(60));
+            $user->setRememberToken(Str::random(60));
             event(new PasswordReset($user));
         }
     );
