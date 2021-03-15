@@ -71,18 +71,9 @@ class UserController extends Controller
             'role' => $request->get('role'),
             'cellphone' => $request->get('cellphone'),
         ]);
-        /*$token = JWTAuth::fromUser($user);
-        return response()->json(compact('user','token'),201)
-            ->withCookie(
-                'token',
-                $token,
-                config('jwt.ttl'),
-                '/',
-                null,
-                config('app.env') !== 'local',
-                true,
-                false,
-                config('app.env') !== 'local' ? 'None' : 'Lax');*/
+
+        return response()->json(compact('user'),201);
+
     }
     public function getAuthenticatedUser()
     {
