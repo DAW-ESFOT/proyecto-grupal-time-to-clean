@@ -21,15 +21,6 @@ class TrucksTableSeeder extends Seeder
         Truck::truncate();
         $faker = \Faker\Factory::create();
 
-        for($i = 0; $i < 5; $i++){
-            Truck::create([
-                'license_plate' => $faker->numerify('PAC-####'),
-                'type' => $faker->randomElement(['Automático', 'Manual']),
-                'working' => $faker->randomElement([true, false]),
-                'user_id'=>null,
-            ]);
-        }
-
         //Inicio de sesion de los users para asignarles un truck
         $users = User::all();
         foreach ($users as $user) {
