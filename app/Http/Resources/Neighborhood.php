@@ -30,7 +30,7 @@ class Neighborhood extends JsonResource
             'end_time' => $this->end_time,
             'days'=>$this->days,
             'link'=>$this->link,
-            'truck'=> $this->when($isAdmin,new TruckResource(Truck::find($this->truck_id))),
+            'truck'=> $this->when($isAdmin,new TruckResource(Truck::find($this->truck_id)), $this->truck_id),
             'complaint'=> $this->when($isAdmin,new ComplaintCollection($this->complaints)),
             //'complaints'=> $this->when($isAdmin,$this->complaints),
         ];
