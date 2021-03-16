@@ -24,39 +24,39 @@ class ComplaintController extends Controller
         return response()->json(new ComplaintResource($complaint),200);
     }
 
-    public function findStatePendiente(){
-        $this->authorize('viewAny',Complaint::class);
-        $complaintsState = array();
-        $complaints = Complaint::all();
-        foreach($complaints as $complaint){
-            if('Pendiente'==$complaint->state) {
-                $complaintsState[] = $complaint;
-            }
-        }
-        return  response()->json(new ComplaintCollection($complaintsState),200);
-    }
-    public function findStateProceso(){
-        $this->authorize('viewAny',Complaint::class);
-        $complaintsState = array();
-        $complaints = Complaint::all();
-        foreach($complaints as $complaint){
-            if('En proceso'==$complaint->state) {
-                $complaintsState[] = $complaint;
-            }
-        }
-        return  response()->json($complaintsState, 200);
-    }
-    public function findStateAtendida(){
-        $this->authorize('viewAny',Complaint::class);
-        $complaintsState = array();
-        $complaints = Complaint::all();
-        foreach($complaints as $complaint){
-            if('Atendida'==$complaint->state) {
-                $complaintsState[] = $complaint;
-            }
-        }
-        return  response()->json($complaintsState, 200);
-    }
+//    public function findStatePendiente(){
+//        $this->authorize('viewAny',Complaint::class);
+//        $complaintsState = array();
+//        $complaints = Complaint::all();
+//        foreach($complaints as $complaint){
+//            if('Pendiente'==$complaint->state) {
+//                $complaintsState[] = $complaint;
+//            }
+//        }
+//        return  response()->json(new ComplaintCollection($complaintsState),200);
+//    }
+//    public function findStateProceso(){
+//        $this->authorize('viewAny',Complaint::class);
+//        $complaintsState = array();
+//        $complaints = Complaint::all();
+//        foreach($complaints as $complaint){
+//            if('En proceso'==$complaint->state) {
+//                $complaintsState[] = $complaint;
+//            }
+//        }
+//        return  response()->json($complaintsState, 200);
+//    }
+//    public function findStateAtendida(){
+//        $this->authorize('viewAny',Complaint::class);
+//        $complaintsState = array();
+//        $complaints = Complaint::all();
+//        foreach($complaints as $complaint){
+//            if('Atendida'==$complaint->state) {
+//                $complaintsState[] = $complaint;
+//            }
+//        }
+//        return  response()->json($complaintsState, 200);
+//    }
 
     public function showDriversWithComplaints(){
 

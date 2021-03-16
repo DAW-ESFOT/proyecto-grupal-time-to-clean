@@ -6,8 +6,6 @@ use App\Models\Complaint;
 use App\Models\Neighborhood;
 use App\Http\Resources\Neighborhood as NeighborhoodResource;
 use App\Http\Resources\NeighborhoodCollection;
-use App\Models\Truck;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
