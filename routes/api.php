@@ -1,10 +1,13 @@
 <?php
 
-use App\Models\Neighborhood;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Complaint;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +39,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('logout', 'App\Http\Controllers\UserController@logout');
 
     Route::get('users', 'App\Http\Controllers\UserController@index');
+    Route::get('users/all', 'App\Http\Controllers\UserController@showAll');
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
+    Route::get('users/{user}/truck', 'App\Http\Controllers\UserController@showDriverTruck');
+    Route::get('users/{user}/neighborhoods', 'App\Http\Controllers\UserController@showDriverNeighborhoods');
     Route::get('users/filter/alternate', 'App\Http\Controllers\UserController@showDriversAlternate');
     Route::get('users/filter/with-truck', 'App\Http\Controllers\UserController@showDriversWithTruck');
     Route::get('users/filter/without-truck', 'App\Http\Controllers\UserController@showDriversWithoutTruck');
@@ -55,6 +61,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Complaints
     Route::get('complaints', 'App\Http\Controllers\ComplaintController@index');
+    Route::get('complaints/all', 'App\Http\Controllers\ComplaintController@showAll');
     Route::get('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@show');
     Route::get('drivers/filter/with-complaints', 'App\Http\Controllers\ComplaintController@showDriversWithComplaints');
     Route::get('trucks/filter/with-complaints', 'App\Http\Controllers\ComplaintController@showTrucksWithComplaints');
@@ -68,6 +75,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //Trucks
     Route::get('trucks', 'App\Http\Controllers\TruckController@index');
+    Route::get('trucks/all', 'App\Http\Controllers\TruckController@showAll');
     Route::get('trucks/{truck}', 'App\Http\Controllers\TruckController@show');
     Route::get('trucks/filter/working', 'App\Http\Controllers\TruckController@showTrucksWorking');
     Route::get('trucks/filter/no-working', 'App\Http\Controllers\TruckController@showTrucksNoWorking');
@@ -79,4 +87,35 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('trucks', 'App\Http\Controllers\TruckController@store');
     Route::put('trucks/{truck}', 'App\Http\Controllers\TruckController@update');
     Route::delete('trucks/{truck}', 'App\Http\Controllers\TruckController@delete');
+});
+
+Route::post('/forgot-password',function (Request $request){
+    $request->validate(['email'=>'required|email']);
+    $status=Password::sendResetLink(
+        $request->only('email')
+    );
+    return $status === Password::RESET_LINK_SENT
+        ? response()->json(['status'=>__($status)],200)
+        : response()->json(['status'=>__($status)],400);
+})->middleware('guest')->name('password.email');
+
+Route::post('/reset-password',function (Request $request){
+    $request->validate([
+        'token'=>'required',
+        'email'=>'required|email',
+        'password'=>'required|min:8|confirmed'
+    ]);
+    $status=Password::reset(
+        $request->only('email','password','password_confirmation','token'),
+        function ($user, $password) use ($request){
+            $user->forceFill([
+                'password'=>Hash::make($password)
+            ])->save();
+            $user->setRememberToken(Str::random(60));
+            event(new PasswordReset($user));
+        }
+    );
+    return $status === Password::PASSWORD_RESET
+        ? response()->json(['status'=>__($status)],200)
+        : response()->json(['status'=>__($status)],400);
 });
