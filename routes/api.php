@@ -68,9 +68,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('neighborhoods/filter/with-complaints', 'App\Http\Controllers\ComplaintController@showNeighborhoodsWithComplaints');
     Route::put('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@update');
     Route::delete('complaints/{complaint}', 'App\Http\Controllers\ComplaintController@delete');
-//    Route::get('complaints/filter/state1', 'App\Http\Controllers\ComplaintController@findStatePendiente');
-//    Route::get('complaints/filter/state2', 'App\Http\Controllers\ComplaintController@findStateProceso');
-//    Route::get('complaints/filter/state3', 'App\Http\Controllers\ComplaintController@findStateAtendida');
+    Route::get('complaints/filter/state1', 'App\Http\Controllers\ComplaintController@findStatePendiente');
+    Route::get('complaints/filter/state2', 'App\Http\Controllers\ComplaintController@findStateProceso');
+    Route::get('complaints/filter/state3', 'App\Http\Controllers\ComplaintController@findStateAtendida');
 
 
     //Trucks
