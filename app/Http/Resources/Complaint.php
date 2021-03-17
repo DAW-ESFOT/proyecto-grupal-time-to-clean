@@ -25,8 +25,7 @@ class Complaint extends JsonResource
             'email'=> $this->email,
             'state'=> $this->state,
             'observation'=>$this->observation,
-            'neighborhood_id'=>$this->neighborhood_id,
-//            'neighborhood'=> new NeighborhoodResource(Neighborhood::find($this->neighborhood_id)),
+            'neighborhood_name'=>$this->neighborhood->name,
             'truck'=> new TruckResource(Truck::find($this->truck_id)),
         ];
     }
